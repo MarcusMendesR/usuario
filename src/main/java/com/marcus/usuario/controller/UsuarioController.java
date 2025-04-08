@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marcus.usuario.business.UsuarioService;
+import com.marcus.usuario.business.dto.EnderecoDTO;
+import com.marcus.usuario.business.dto.TelefoneDTO;
 import com.marcus.usuario.business.dto.UsuarioDTO;
 import com.marcus.usuario.infrastructure.entity.Usuario;
 import com.marcus.usuario.infrastructure.security.JwtUtil;
@@ -45,7 +47,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Usuario> buscaUsuarioPorEmail(@RequestParam("email") String email) {
+    public ResponseEntity<UsuarioDTO> buscaUsuarioPorEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(usuarioService.buscaUsuarioPorEmail(email));
     }
 
@@ -60,6 +62,17 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTO> atualizaDadoUsuario(@RequestBody UsuarioDTO dto, @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
     }
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> atualizaEndereco(@RequestBody EnderecoDTO dto, @RequestParam("id") Long id) {
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO dto, @RequestParam("id") Long id) {
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
+    }
+
 
     
 }
