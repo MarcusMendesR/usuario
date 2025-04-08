@@ -19,7 +19,7 @@ public class Telefone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "ddd", length = 2)
+    @Column(name = "ddd", length = 5)
     private String ddd;
     @Column(name = "numero", length = 10)
     private String numero;
