@@ -1,6 +1,5 @@
 package com.marcus.usuario.business.dto;
 
-import org.checkerframework.checker.units.qual.A;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
