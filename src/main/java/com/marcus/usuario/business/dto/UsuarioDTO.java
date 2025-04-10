@@ -2,7 +2,6 @@ package com.marcus.usuario.business.dto;
 
 import java.util.List;
 
-import com.marcus.usuario.infrastructure.entity.Endereco;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
