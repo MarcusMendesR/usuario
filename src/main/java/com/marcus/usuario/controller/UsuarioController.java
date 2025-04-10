@@ -1,6 +1,5 @@
 package com.marcus.usuario.controller;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +18,6 @@ import com.marcus.usuario.business.UsuarioService;
 import com.marcus.usuario.business.dto.EnderecoDTO;
 import com.marcus.usuario.business.dto.TelefoneDTO;
 import com.marcus.usuario.business.dto.UsuarioDTO;
-import com.marcus.usuario.infrastructure.entity.Usuario;
 import com.marcus.usuario.infrastructure.security.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -28,17 +26,17 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/usuario")
 @RequiredArgsConstructor
 public class UsuarioController {
-    
+
     private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
-   
+
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvaUsuario(@RequestBody UsuarioDTO usuarioDTO){
-     return  ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
+    public ResponseEntity<UsuarioDTO> salvaUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
     }
 
-     @PostMapping("/login")
+    @PostMapping("/login")
     public String login(@RequestBody UsuarioDTO usuarioDTO) {
         org.springframework.security.core.Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha()));
@@ -59,7 +57,8 @@ public class UsuarioController {
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> atualizaDadoUsuario(@RequestBody UsuarioDTO dto, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<UsuarioDTO> atualizaDadoUsuario(@RequestBody UsuarioDTO dto,
+            @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
     }
 
@@ -73,6 +72,16 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
     }
 
+    @PostMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> cadastraEndereco(@RequestBody EnderecoDTO dto,
+            @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.cadastroEndereco(token, dto));
+    }
 
-    
+    @PostMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> cadastraTelefone(@RequestBody TelefoneDTO dto,
+            @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.cadastraTelefone(token, dto));
+    }
+
 }
